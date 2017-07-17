@@ -1,2 +1,2 @@
 # richToolProject
-learn spring, hibernate, jpa, mybatis, springMVC, MySQL, log4j, mongoDB, kafka, rabbitMQ, redis, quartz, zookeeper, dubbo, hystrix, webService, resteasy, aop
+learn Spring, Hibernate, JPA, mybatis, SpringMVC, MySQL, log4j2, mongodb, kafka, RabbitMQ, redis, Quartz, zookeeper, dubbo, hystrix, webService, resteasy, aop
