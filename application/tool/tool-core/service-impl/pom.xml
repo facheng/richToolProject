@@ -12,5 +12,12 @@
 
     <artifactId>core-service-impl</artifactId>
     <name>tool-core service-impl</name>
-    <packaging>pom</packaging>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.posse.tool.core</groupId>
+            <artifactId>core-service</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
 </project>

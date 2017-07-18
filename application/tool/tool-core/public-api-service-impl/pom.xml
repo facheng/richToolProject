@@ -11,7 +11,6 @@
 
     <artifactId>core-public-api-service-impl</artifactId>
     <name>tool-core public-api-service-impl</name>
-    <packaging>pom</packaging>
 
     <dependencies>
         <dependency>

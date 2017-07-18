@@ -12,7 +12,4 @@
 
     <artifactId>core-service</artifactId>
     <name>tool-core Service</name>
-    <packaging>pom</packaging>
-
-
 </project>
