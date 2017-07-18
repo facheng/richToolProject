@@ -12,6 +12,5 @@
 
     <artifactId>core-service-impl</artifactId>
     <name>tool-core service-impl</name>
-
-
+    <packaging>pom</packaging>
 </project>
