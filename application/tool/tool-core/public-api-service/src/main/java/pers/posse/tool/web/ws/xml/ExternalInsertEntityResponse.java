@@ -5,12 +5,4 @@ package pers.posse.tool.web.ws.xml;
  */
 public class ExternalInsertEntityResponse {
     private String response = "Insert Success.";
-
-    public String getResponse() {
-        return response;
-    }
-
-    public void setResponse(String response) {
-        this.response = response;
-    }
 }
