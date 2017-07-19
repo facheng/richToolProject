@@ -1,0 +1,19 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="unqualified">
+
+    <xs:annotation>
+        <xs:documentation xml:lang="en">
+            This is the XSD schema definition for oTMS web services.
+
+            Please refer to collection of oTMS Web Services Specification documents for
+            further details.
+        </xs:documentation>
+    </xs:annotation>
+
+
+    <xs:element name="externalInsertEntityRequest" type="externalInsertEntityRequest" />
+    <xs:complexType name="externalInsertEntityRequest">
+        <xs:sequence>
+            <xs:element name="operation" type="xs:string" />
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>

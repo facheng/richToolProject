@@ -1,22 +1,20 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <web-app xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          version="3.0"
-         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+         xmlns:context="http://www.springframework.org/schema/context">
     <!--<small-icon>../../mp/icon/honeybee.jpg</small-icon>-->
     <!--<large-icon>../../mp/icon/cat.jpg</large-icon>-->
 
     <display-name>richTool</display-name>
     <description>richTool application</description>
-
-    <!-- 初始化参数, 上下文参数：声明应用范围内的初始化参数
-        在servlet里面可以通过 getServletContext().getInitParameter(“context/param”)得到
-    -->
-    <context-param>
-        <param-name>param_name</param-name>
-        <param-value>param_value</param-value>
-    </context-param>
-
     <!--
+        初始化参数, 上下文参数：声明应用范围内的初始化参数
+        在servlet里面可以通过 getServletContext().getInitParameter(“context/param”)得到
+        applicationContext.xml 想要被容器ContextLoaderListener 加载
+        第一种：直接将之放到/WEB-INF下,默认加载这个文件
+        第二种：将之放到classpath下，但是此时要在web.xml中加入<context-param>，用它来指明你的applicationContext.xml的位置以供web容器来加载
+
         解释classes含义：
         1.存放各种资源配置文件 eg.init.properties log4j.properties struts.xml
         2.存放模板文件 eg.actionerror.ftl
@@ -28,15 +26,16 @@
         classpath:与classpath*:的区别在于，
         前者只会从第一个classpath中加载,后者会从所有的classpath中加载
     -->
+    <context:property-placeholder location="classpath*:META-INF/application.properties"/>
     <context-param>
         <param-name>contextConfigLocation</param-name>
-        <param-value>classpath*:config/spring/applicationContext.xml</param-value>
+        <param-value>classpath*:META-INF/config/spring/applicationContext.xml</param-value>
     </context-param>
 
     <!-- Creates the Spring Container, load applicationContext -->
-    <!--<listener>-->
-        <!--<listener-class>org.springFramework.web.context.ContextLoaderListener</listener-class>-->
-    <!--</listener>-->
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
 
     <!-- 拦截器, 可以自定义 实现javaxs.servlet.Filter -->
     <!--<filter>-->
@@ -92,4 +91,16 @@
     分别地声明角色可使高级IDE处理安全信息更为容易-->
     <!--<security-role></security-role>-->
 
+    <servlet>
+        <display-name>CXFService</display-name>
+        <servlet-name>CXFService</servlet-name>
+        <servlet-class>org.apache.cxf.transport.servlet.CXFServlet</servlet-class>
+        <description>Apache CXF Endpoint</description>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>CXFService</servlet-name>
+        <url-pattern>/ws/*</url-pattern>
+    </servlet-mapping>
 </web-app>
