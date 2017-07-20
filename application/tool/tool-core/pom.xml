@@ -50,9 +50,11 @@
         <jackson-core.version>2.6.3</jackson-core.version>
         <jackson-asl.version>1.9.13</jackson-asl.version>
         <swagger.version>1.5.15</swagger.version>
+        <cxf-rt-frontend-jaxrs>2.7.0</cxf-rt-frontend-jaxrs>
         <javax-ws-rs-api.version>2.0.1</javax-ws-rs-api.version>
         <jsr311-api.version>1.1.1</jsr311-api.version>
         <cxf-rt-frontend-jaxws>3.1.2</cxf-rt-frontend-jaxws>
+        <jettison.version>1.3.8</jettison.version>
         <xmlschema-core>2.2.1</xmlschema-core>
         <jackson-jaxrs.version>1.9.13</jackson-jaxrs.version>
         <jaxb-api.version>2.2.12</jaxb-api.version>
@@ -351,24 +353,21 @@
             <version>${jsr311-api.version}</version>
         </dependency>
         <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-frontend-jaxrs</artifactId>
+            <version>${cxf-rt-frontend-jaxrs}</version>
+        </dependency>
+        <dependency>
             <groupId>javax.ws.rs</groupId>
             <artifactId>javax.ws.rs-api</artifactId>
             <version>${javax-ws-rs-api.version}</version>
         </dependency>
+
+        <!-- 这个是 jaxrs:server org.apache.cxf.jaxrs.provider.JSONProvider provider -->
         <dependency>
-            <groupId>org.apache.cxf</groupId>
-            <artifactId>cxf-rt-frontend-jaxws</artifactId>
-            <version>${cxf-rt-frontend-jaxws}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.ws.xmlschema</groupId>
-            <artifactId>xmlschema-core</artifactId>
-            <version>${xmlschema-core}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.cxf</groupId>
-            <artifactId>cxf-rt-rs-client</artifactId>
-            <version>${cxf-rt-frontend-jaxws}</version>
+            <groupId>org.codehaus.jettison</groupId>
+            <artifactId>jettison</artifactId>
+            <version>${jettison.version}</version>
         </dependency>
 
         <!--这是jaxb用的的包, 因为jaxrs:server 配置里面用到"org.codehaus.jackson.jaxrs.JacksonJsonProvider"-->

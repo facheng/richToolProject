@@ -10,7 +10,7 @@ import pers.posse.tool.web.ws.xml.ExternalInsertEntityResponse;
 public class ExternalInsertEntityServiceImpl implements ExternalInsertEntityService {
     @Override
     public ExternalInsertEntityResponse insertStudent(ExternalInsertEntityRequest externalInsertEntityRequest) {
-        System.out.println("insert a student");
+        System.out.println(externalInsertEntityRequest.getOperation());
         return new ExternalInsertEntityResponse();
     }
 }
