@@ -1,4 +1,4 @@
-package pers.posse.tool.base;
+package pers.posse.tool.utils;
 
 /**
  * Created by posse on 17-7-17.

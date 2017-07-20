@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- POJO 使用xml配置, 初始化加载到hibernate.cfg.xml中, 使用注解则不需要 -->
+<hibernate-mapping>
+    <class name="pers.posse.tool.service.impl.domain.Student" table="student">
+        <id name="id" column="id" type="java.lang.Long">
+            <generator class="native" />
+        </id>
+        <property name="name"  column="name" type="java.lang.String" />
+        <property name="age" column="age" type="java.lang.Integer" />
+        <property name="gender" column="gender" type="java.lang.Integer" />
+    </class>
+</hibernate-mapping>

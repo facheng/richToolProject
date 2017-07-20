@@ -10,4 +10,8 @@
     <name>tool-base Parent</name>
     <packaging>pom</packaging>
 
+    <modules>
+        <module>base-utils</module>
+        <module>business</module>
+    </modules>
 </project>

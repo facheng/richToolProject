@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <!-- 数据库连接信息 -->
+        <property name="hibernate.connection.driver_class"></property>
+        <property name="hibernate.connection.url"></property>
+        <property name="hibernate.connection.username"></property>
+        <property name="hibernate.connection.password"></property>
+
+        <!-- hibernate 基本属性配置 -->
+        <!--
+            1.输出底层sql
+            2.输出sql的语句格式
+            3.是否自动建表:
+                validate 每次加载自动验证
+                create 每次删除原有的再创建
+                update 第一次创建, 之后更新
+                create-drop 程序关闭, 自动删除
+            4.数据库方言, 让hibernate知道那个库的语句, 如分页在mysql中使用关键字limit, 但是在oracle中只能用rownum.
+        -->
+        <property name="hibernate.show_sql">true</property>
+        <property name="hibernate.format_sql">true</property>
+        <property name="hibernate.hbm2ddl.auto">update</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQL94Dialect</property>
+        <!--<property name="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</property>-->
+
+
+        <!-- 加载bean.xml 使用注解则不需要 -->
+    </session-factory>
+</hibernate-configuration>
