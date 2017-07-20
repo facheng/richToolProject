@@ -2,15 +2,15 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jaxrs="http://cxf.apache.org/jaxrs"
        xmlns:util="http://www.springframework.org/schema/util"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
-	http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
-	http://cxf.apache.org/jaxrs http://cxf.apache.org/schemas/jaxrs.xsd ">
+	http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+	http://cxf.apache.org/jaxrs http://cxf.apache.org/schemas/jaxrs.xsd
+    http://www.springframework.org/schema/util
+    http://www.springframework.org/schema/util/spring-util-4.0.xsd ">
 
     <bean id="externalInsertEntityServiceImpl" class="pers.posse.tool.web.ws.impl.ExternalInsertEntityServiceImpl" />
     <bean id="encodingLoggingInInterceptor" class="pers.posse.tool.interceptor.EncodingLoggingInInterceptor" />
     <bean id="outLoggingInterceptor" class="org.apache.cxf.interceptor.LoggingInInterceptor" />
-    <!--<bean id="wadlGenerator" class="org.apache.cxf.jaxrs.model.wadl.WadlGenerator">-->
-        <!--<property name="schemaLocations" value="classpath*:/schema/webServices.xsd" />-->
-    <!--</bean>-->
+
     <!--
         JsonProvider的属性
         dropRootElement 默认为false,则Json格式会将类名作为第一个节点,如{Customer:{"id":123,"name":"John"}},
@@ -20,30 +20,31 @@
         serializeAsArray属性默认为false,则当遇到Collecion时,格式为{{"id":123,"name":"John"}},
         如果设置为true，则格式为[{"id":123,"name":"john"}],而Gson等解析为后者
     -->
-    <!--<util:list id="jsonKeys">-->
-        <!--<value>app</value>-->
-        <!--<value>comment</value>-->
-    <!--</util:list>-->
-    <!--<util:list id="jsonTypes">-->
-        <!--<value>application/json</value>-->
-        <!--<value>application/jettison</value>-->
-    <!--</util:list>-->
-    <!--<bean id="jsonGenerator" class="org.codehaus.jackson.jaxrs.JacksonJaxbJsonProvider">-->
-        <!--<property name="arrayKeys" ref="jsonKeys" />-->
-        <!--<property name="dropRootElement" value="false" />-->
-        <!--<property name="dropCollectionWrapperElement属性默认为false" value="false" />-->
-        <!--<property name="serializeAsArray" value="false" />-->
-        <!--<property name="produceMediaTypes" ref="jsonTypes" />-->
-        <!--<property name="consumeMediaTypes" ref="jsonTypes" />-->
-    <!--</bean>-->
+    <bean id="jsonProvider" class="org.apache.cxf.jaxrs.provider.json.JSONProvider">
+        <property name="schemaHandler" ref="schemaHolder"/>
+    </bean>
+
+    <bean id ="jaxbProvider" class ="org.apache.cxf.jaxrs.provider.JAXBElementProvider">
+        <property name="schemaHandler" ref="schemaHolder" />
+    </bean>
+
+    <bean id="schemaHolder" class="org.apache.cxf.jaxrs.utils.schemas.SchemaHandler">
+        <property name="schemas" ref="theSchemas" />
+    </bean>
+
+    <util:list id="theSchemas">
+        <value>classpath:/schema/webServices.xsd</value>
+    </util:list>
+
     <jaxrs:server id="externalInsertEntityService" address="/">
         <jaxrs:serviceBeans>
             <ref bean="externalInsertEntityServiceImpl" />
         </jaxrs:serviceBeans>
 
-        <!--<jaxrs:providers>-->
-            <!--<ref bean="wadlGenerator"/>-->
-        <!--</jaxrs:providers>-->
+        <jaxrs:providers>
+            <ref bean="jaxbProvider" />
+            <ref bean='jsonProvider' />
+        </jaxrs:providers>
 
         <jaxrs:inInterceptors>
             <ref bean="encodingLoggingInInterceptor"/>
@@ -57,5 +58,4 @@
             <entry key="en" value="en-gb" />
         </jaxrs:extensionMappings>
     </jaxrs:server>
-
 </beans>
