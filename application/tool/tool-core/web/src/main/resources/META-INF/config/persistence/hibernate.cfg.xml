@@ -10,6 +10,7 @@
         <property name="hibernate.connection.username"></property>
         <property name="hibernate.connection.password"></property>
 
+
         <!-- hibernate 基本属性配置 -->
         <!--
             1.输出底层sql
@@ -27,6 +28,15 @@
         <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQL94Dialect</property>
         <!--<property name="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</property>-->
 
+
+        <!--
+            openSession() 和 getCurrentSession() 方法主要有两个区别:
+            1.getCurrentSession在事务提交或回滚之后会自动关闭,而openSession需要手动关闭,
+                如果使用openSession而没有手动关闭,多次之后会导致连接池溢出.
+            2.openSession每次都创建新的session对象, getCurrentSession使用现有的session对象.
+        -->
+        <!-- 使用getCurrentSession() 方法获取session时必须在配置文件中添加此属性. -->
+        <property name="hibernate.current_session_context_class">thread</property>
 
         <!-- 加载bean.xml 使用注解则不需要 -->
     </session-factory>
