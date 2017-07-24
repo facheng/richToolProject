@@ -14,36 +14,44 @@ XML解析器使用DTD文档来检查XML文件的合法性。hibernate.sourceforg
     -->
     <session-factory>
         <!-- 数据库连接信息 -->
-        <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
-        <property name="hibernate.connection.url">jdbc:postgresql://192.168.3.14:5432/qaotmsopenapi</property>
-        <property name="hibernate.connection.username">jetty</property>
-        <property name="hibernate.connection.password">jetty</property>
+        <!--<property name="hibernate.connection.driver_class">org.postgresql.Driver</property>-->
+        <!--<property name="hibernate.connection.url">jdbc:postgresql://192.168.3.14:5432/qaotmsopenapi</property>-->
+        <!--<property name="hibernate.connection.username">jetty</property>-->
+        <!--<property name="hibernate.connection.password">jetty</property>-->
+
+        <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="hibernate.connection.url">jdbc:mysql://192.168.3.14:3306/school</property>
+        <property name="hibernate.connection.username">posse</property>
+        <property name="hibernate.connection.password">posse</property>
 
         <!-- hibernate 基本属性配置 -->
         <!--
             1.输出底层sql
             2.输出sql的语句格式
             3.是否自动建表:
-                validate 每次加载自动验证
-                create 每次删除原有的再创建
-                update 第一次创建, 之后更新
-                create-drop 程序关闭, 自动删除
+                validate 每次加载自动验证, 验证创建数据库表结构，只会和数据库中的表进行比较，不会创建新表，但是会插入新值.
+                create 每次删除原有的再创建.
+                update 第一次创建, 之后更新, 发生改变时, 不是部署的时候改变表结构, 第一次运行时检查到表结构改变并更新.
+                create-drop 程序关闭(sessionFactory关闭), 自动删除,
             4.数据库方言, 让hibernate知道那个库的语句, 如分页在mysql中使用关键字limit, 但是在oracle中只能用rownum.
                 根据底层的数据库不同产生不同的 sql 语句，Hibernate 会针对数据库的特性在访问时进行优化.
+            5.连接池.
         -->
         <property name="hibernate.show_sql">true</property>
         <property name="hibernate.format_sql">true</property>
         <property name="hibernate.hbm2ddl.auto">update</property>
-        <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQL94Dialect</property>
-        <!--<property name="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</property>-->
+        <!--<property name="hibernate.dialect">org.hibernate.dialect.PostgreSQL94Dialect</property>-->
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQL55Dialect</property>
+        <property name="hibernate.connection.pool.size">100</property>
 
         <!-- c3p0 连接池 -->
-        <property name="hibernate.c3p0.max_size">10</property>
-        <property name="hibernate.c3p0.min_size">5</property>
-        <property name="c3p0.acquire_increment">2</property>
-        <property name="c3p0.idle_test_period">2000</property>
-        <property name="c3p0.timeout">2000</property>
-        <property name="c3p0.max_statements">10</property>
+        <!--<property name="connection.provider_class">org.hibernate.c3p0.internal.C3P0ConnectionProvider</property>-->
+        <!--<property name="hibernate.c3p0.max_size">50</property>-->
+        <!--<property name="hibernate.c3p0.min_size">10</property>-->
+        <!--<property name="c3p0.acquire_increment">5</property>-->
+        <!--<property name="c3p0.idle_test_period">2000</property>-->
+        <!--<property name="c3p0.timeout">2000</property>-->
+        <!--<property name="c3p0.max_statements">10</property>-->
 
         <!--  ********************数据库连接池的大小***************************
             1.hibernate.c3p0.max_size: 数据库连接池的最大连接数
@@ -53,7 +61,8 @@ XML解析器使用DTD文档来检查XML文件的合法性。hibernate.sourceforg
             5.hibernate.c3p0.idle_test_period:  表示连接池检测线程多长时间检测一次池内的所有链接对象是否超时.
                 连接池本身不会把自己从连接池中移除，而是专门有一个线程按照一定的时间间隔来做这件事，
                 这个线程通过比较连接对象最后一次被使用时间和当前时间的时间差来和 timeout 做对比，进而决定是否销毁这个连接对象。
-            6.缓存 Statement 对象的数量
+            6.缓存 Statement 对象的数量,由于预缓存的statements属于单个 connection而不是整个连接池。所以设置这个参数需要考虑到多方面的因素.
+                如果maxStatements与 maxStatementsPerConnection均为0，则缓存被关闭
         -->
 
         <!--  ********************其他设置***************************
@@ -69,19 +78,23 @@ XML解析器使用DTD文档来检查XML文件的合法性。hibernate.sourceforg
             7.use_identifier_rollback 删除对象后，使其OID置为null
         <property name="jdbc.use_scrollable_resultset">false </property>
         -->
-        <property name="hibernate.connection.pool.size">20 </property>
-        <property name="jdbc.fetch_size">50 </property>
-        <property name="jdbc.batch_size">23 </property>
-        <property name="jdbc.use_scrollable_resultset">false </property>
-        <property name="Connection.useUnicode">true </property>
-        <property name="connection.characterEncoding">gbk</property>
-        <property name="connection.isolation">2</property>
-        <property name="use_identifier_rollback">true</property>
+        <!--<property name="hibernate.connection.pool.size">20 </property>-->
+        <!--<property name="jdbc.fetch_size">50 </property>-->
+        <!--<property name="jdbc.batch_size">23 </property>-->
+        <!--<property name="jdbc.use_scrollable_resultset">false </property>-->
+        <!--<property name="Connection.useUnicode">true </property>-->
+        <!--<property name="connection.characterEncoding">gbk</property>-->
+        <!--<property name="connection.isolation">2</property>-->
+        <!--<property name="use_identifier_rollback">true</property>-->
 
-        <!-- 使用getCurrentSession() 方法获取session时必须在配置文件中添加此属性. -->
-        <!--<property name="hibernate.current_session_context_class">thread</property>-->
+        <!-- 使用getCurrentSession() 方法获取session时必须在配置文件中添加此属性.
+            如果使用的是本地事务（jdbc事务）
+                <property name="hibernate.current_session_context_class">thread</property>
+            如果使用的是全局事务（jta事务）
+                <property name="hibernate.current_session_context_class">jta</property>
+        -->
 
         <!-- 加载bean.xml 使用注解则不需要 -->
-        <mapping resource="..."/>
+        <!--<mapping resource="..."/>-->
     </session-factory>
 </hibernate-configuration>

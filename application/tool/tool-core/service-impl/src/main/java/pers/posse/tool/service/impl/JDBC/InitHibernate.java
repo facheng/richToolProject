@@ -55,7 +55,7 @@ public class InitHibernate {
     {
         /**
          * 1.由于hibernate.properties作为配置文件时，没有提供添加Hibernate持久化类的方式，
-         *  因此必须调用Configuration对象的addAnnotatedClass()或addPackage()方法，使用这些方法添加持久化类。
+         *  因此必须调用Configuration对象的addAnnotatedClass()方法添加持久化类。
          *  Configuration对象可调用addAnnotatedClass()方法逐个地添加持久化类.
          *
          * 2.可调用addPackage()方法添加指定包下的所有持久化类.
@@ -63,18 +63,18 @@ public class InitHibernate {
          * 3.使用hibernate.cfg.xml配置文件可以通过<mapping.../>子元素添加Hibernate持久化类，因此无须通过编程方式添加持久化类.
          *  configure()方法将会负责加载hibernate.cfg.xml文件
          *
-         * 4.不使用配置文件, coding添加configuration的属性
+         * 4.不使用配置文件, coding添加configuration的属性, 硬编码方式
          *  Configuration setProperties(Properties properties) : 用于为Configuration对象设置一系列属性，这一系列属性通过Properties实例传入。
          *  Configuration setProperty(String propertyName,String value) : 用于为Configuration对象设置一个单独的属性。
          */
-        Configuration configuration1 = new Configuration().configure().addAnnotatedClass(Object.class).addAnnotatedClass(String.class).addAnnotatedClass(Long.class);
-        Configuration configuration2 = new Configuration().configure().addPackage("pers.posse.tool.service.impl.domain");
-        // 指定配置文件,默认"hibernate.cfg.xml"
-        Configuration configuration3 = new Configuration().configure("hibernate.cfg.xml");
-        Configuration configuration4 = new Configuration().configure().addAnnotatedClass(Object.class).setProperty("hibernate.connection.driver_class","com.mysql.jdbc.Driver")
-                .setProperty("hibernate.connection.url", "jdbc:mysql:///hibernate")
-                .setProperty("hibernate.connection.username", "root")
-                .setProperty("hibernate.connection.password", "root");
+//        Configuration configuration1 = new Configuration().configure().addAnnotatedClass(Object.class).addAnnotatedClass(String.class).addAnnotatedClass(Long.class);
+//        Configuration configuration2 = new Configuration().configure().addPackage("pers.posse.tool.service.impl.domain");
+//        // 指定配置文件,默认"hibernate.cfg.xml"
+//        Configuration configuration3 = new Configuration().configure("hibernate.cfg.xml");
+//        Configuration configuration4 = new Configuration().configure().addAnnotatedClass(Object.class).setProperty("hibernate.connection.driver_class","com.mysql.jdbc.Driver")
+//                .setProperty("hibernate.connection.url", "jdbc:mysql:///hibernate")
+//                .setProperty("hibernate.connection.username", "root")
+//                .setProperty("hibernate.connection.password", "root");
 
         // ServiceRegistry? ServiceRegistry 是 Service 的注册表, 它为Service提供了一个统一的加载 / 初始化 / 存放 / 获取机制.
 
@@ -83,9 +83,10 @@ public class InitHibernate {
          * Hibernate ORM 4 里面推荐的方式是 org.hibernate.cfg.Configuration#buildSessionFactory(ServiceRegistry serviceRegistry),
          * 需要先构造一个 ServiceRegistry 对象
          */
-        StandardServiceRegistryBuilder serviceRegistryBuilder = new StandardServiceRegistryBuilder();
-        ServiceRegistry serviceRegistry = serviceRegistryBuilder.build();
-        SessionFactory sessionFactory = configuration1.buildSessionFactory(serviceRegistry);
+        Configuration configuration = new Configuration().configure("hibernate.cfg.xml").addAnnotatedClass(Student.class);
+        ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
+                .applySettings(configuration.getProperties()).build();
+        SessionFactory sessionFactory = configuration.buildSessionFactory(serviceRegistry);
 
 
         //openSession() 和 getCurrentSession() 方法主要有两个区别:
