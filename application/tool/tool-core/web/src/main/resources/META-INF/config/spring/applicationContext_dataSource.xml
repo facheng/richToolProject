@@ -148,6 +148,7 @@
         <!--</property>-->
     </bean>
     <bean id="entityManagerFactoryRead" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <property name="persistenceUnitName" value="persistenceUnitRead"/>
         <property name="dataSource" ref="schoolDataSourceRead"/>
         <property name="jpaVendorAdapter" ref="jpaVendorAdapter"/>
         <!--待扫描的实体类包，不再需要persistence.xml了-->
@@ -170,8 +171,15 @@
         <property name="entityManagerFactory" ref="entityManagerFactoryRead"/>
     </bean>
 
-    <!-- 使用注解方式来使用声明事物   -->
-    <!-- 代理目标对象必须设置为 true 要不然sprig 注入的业务代理bean  就没有办法进行对象上转-->
-    <tx:annotation-driven transaction-manager="transactionManager"  proxy-target-class="true"/>
+    <!-- 使用注解方式来使用声明事物
+        mode：指定Spring事务管理框架创建通知bean的方式。可用的值有proxy和aspectj。前者是默认值，表示通知对象是个JDK代理；
+            后者表示Spring AOP会使用AspectJ创建代理
+        proxy-target-class：如果为true，Spring将创建子类来代理业务类；如果为false，则使用基于接口的代理。
+            （如果使用子类代理，需要在类路径中添加CGLib.jar类库）
+        order：如果业务类除事务切面外，还需要织入其他的切面，通过该属性可以控制事务切面在目标连接点的织入顺序。
+        transaction-manager：指定到现有的PlatformTransaction Manager bean的引用，通知会使用该引用
+    -->
+    <tx:annotation-driven mode="aspectj" transaction-manager="transactionManager" order="2" />
+
 
 </beans>

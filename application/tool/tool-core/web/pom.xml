@@ -12,7 +12,7 @@
 
     <artifactId>core-web</artifactId>
     <name>tool-core web</name>
-    <packaging>war</packaging>
+    <packaging>pom</packaging>
 
     <dependencies>
         <!-- module dependency -->

@@ -11,10 +11,10 @@
     <name>tool-core Parent</name>
 
     <modules>
-        <module>service</module>
-        <module>service-impl</module>
         <module>public-api-service</module>
         <module>public-api-service-impl</module>
+        <module>service</module>
+        <module>service-impl</module>
         <module>web</module>
     </modules>
 
