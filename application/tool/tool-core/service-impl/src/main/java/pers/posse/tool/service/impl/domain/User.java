@@ -8,26 +8,29 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
 /**
  * Created by posse on 17-7-20.
  */
 @Entity
-@SequenceGenerator(name = "seq_teacher", sequenceName = "seq_teacher")
-public class Teacher {
+@Table(name = "user")
+// 自动建表时,创建索引
+@SequenceGenerator(name = "seq_user", sequenceName = "seq_user")
+public class User {
 
     @Id
     @Column(name = "id")
-    @GeneratedValue(generator = "seq_teacher", strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(generator = "seq_user", strategy = GenerationType.SEQUENCE)
     private Long id;
 
-    @Column
+    @Column(name = "name")
     private String name;
 
-    @Column
-    private int age;
+    @Column(name = "age")
+    private Integer age;
 
-    @Column
+    @Column(name = "gender")
     private Gender gender;
 
     @Column(length = 18)
@@ -38,6 +41,15 @@ public class Teacher {
 
     @Column
     private String mobile;
+
+    @Column(name = "api_name")
+    private String apiName;
+
+    @Column(name = "api_password")
+    private String apiPassword;
+
+    public User() {
+    }
 
     public Long getId() {
         return id;
@@ -51,11 +63,11 @@ public class Teacher {
         this.name = name;
     }
 
-    public int getAge() {
+    public Integer getAge() {
         return age;
     }
 
-    public void setAge(int age) {
+    public void setAge(Integer age) {
         this.age = age;
     }
 
@@ -89,5 +101,21 @@ public class Teacher {
 
     public void setMobile(String mobile) {
         this.mobile = mobile;
+    }
+
+    public String getApiName() {
+        return apiName;
+    }
+
+    public void setApiName(String apiName) {
+        this.apiName = apiName;
+    }
+
+    public String getApiPassword() {
+        return apiPassword;
+    }
+
+    public void setApiPassword(String apiPassword) {
+        this.apiPassword = apiPassword;
     }
 }
