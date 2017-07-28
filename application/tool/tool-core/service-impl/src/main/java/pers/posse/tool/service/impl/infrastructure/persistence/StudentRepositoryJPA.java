@@ -12,6 +12,5 @@ import javax.persistence.PersistenceContext;
 @Repository
 public class StudentRepositoryJPA implements IStudentRepository {
 
-    @PersistenceContext(unitName = "persistenceUnitWrite")
     private EntityManager em;
 }

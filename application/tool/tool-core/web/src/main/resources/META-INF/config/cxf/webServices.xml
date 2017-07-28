@@ -1,20 +1,18 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:jaxrs="http://cxf.apache.org/jaxrs"
-       xmlns:jaxws="http://cxf.apache.org/jaxws"
        xmlns:util="http://www.springframework.org/schema/util"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
 	http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
 	http://cxf.apache.org/jaxrs http://cxf.apache.org/schemas/jaxrs.xsd
-	http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd
     http://www.springframework.org/schema/util
     http://www.springframework.org/schema/util/spring-util-4.0.xsd ">
 
     <import resource="classpath:META-INF/cxf/cxf.xml"/>
     <import resource="classpath:META-INF/cxf/cxf-extension-soap.xml"/>
     <import resource="classpath:META-INF/cxf/cxf-servlet.xml"/>
-    
-    <bean id="externalInsertEntityServiceImpl" class="pers.posse.tool.web.ws.impl.ExternalInsertEntityServiceImpl" />
+
+    <bean id="externalOperateEntityServiceImpl" class="pers.posse.tool.web.ws.impl.ExternalOperateEntityServiceImpl" />
     <bean id="encodingLoggingInInterceptor" class="pers.posse.tool.interceptor.EncodingLoggingInInterceptor" />
     <bean id="outLoggingInterceptor" class="org.apache.cxf.interceptor.LoggingInInterceptor" />
 
@@ -45,7 +43,7 @@
 
     <jaxrs:server id="externalInsertEntityService" address="/">
         <jaxrs:serviceBeans>
-            <ref bean="externalInsertEntityServiceImpl" />
+            <ref bean="externalOperateEntityServiceImpl" />
         </jaxrs:serviceBeans>
 
         <jaxrs:providers>
