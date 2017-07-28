@@ -7,7 +7,7 @@
     http://www.springframework.org/schema/util
     http://www.springframework.org/schema/util/spring-util-4.0.xsd ">
 
-    <bean id="externalInsertEntityServiceImpl" class="pers.posse.tool.web.ws.impl.ExternalInsertEntityServiceImpl" />
+    <bean id="externalOperateEntityServiceImpl" class="pers.posse.tool.web.ws.impl.ExternalOperateEntityServiceImpl" />
     <bean id="encodingLoggingInInterceptor" class="pers.posse.tool.interceptor.EncodingLoggingInInterceptor" />
     <bean id="outLoggingInterceptor" class="org.apache.cxf.interceptor.LoggingInInterceptor" />
 
@@ -38,7 +38,7 @@
 
     <jaxrs:server id="externalInsertEntityService" address="/">
         <jaxrs:serviceBeans>
-            <ref bean="externalInsertEntityServiceImpl" />
+            <ref bean="externalOperateEntityServiceImpl" />
         </jaxrs:serviceBeans>
 
         <jaxrs:providers>

@@ -2,7 +2,7 @@ package pers.posse.tool.web.ws.xml;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -12,14 +12,55 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "externalInsertEntityRequest")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class ExternalInsertEntityRequest {
-    @XmlElement(required = true)
-    private String operation;
 
-    public String getOperation() {
+    @XmlAttribute(name = "userName", required = true)
+    private String userName;
+    @XmlAttribute(name = "password", required = true)
+    private String password;
+    @XmlAttribute(name = "version", required = true)
+    private String version;
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getVersion() {
+        return version;
+    }
+
+    public void setVersion(String version) {
+        this.version = version;
+    }
+
+    private Operation operation;
+
+    private DomainAttribute domainAttribute;
+
+    public Operation getOperation() {
         return operation;
     }
 
-    public void setOperation(String operation) {
+    public void setOperation(Operation operation) {
         this.operation = operation;
+    }
+
+    public DomainAttribute getDomainAttribute() {
+        return domainAttribute;
+    }
+
+    public void setDomainAttribute(DomainAttribute domainAttribute) {
+        this.domainAttribute = domainAttribute;
     }
 }

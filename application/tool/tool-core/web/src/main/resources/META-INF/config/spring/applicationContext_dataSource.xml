@@ -25,7 +25,7 @@
         <property name="driverClassName"  value="${database.driver.className}" />
 
         <!-- 指定host/port/dbName, 用户名, 密码 -->
-        <property name="url" value="database.school.read.url" />
+        <property name="url" value="${database.school.read.url}" />
         <property name="username" value="${database.school.read.username}" />
         <property name="password" value="${database.school.read.password}" />
 
@@ -59,18 +59,18 @@
         <property name="driverClassName"  value="${database.driver.className}" />
 
         <!-- 指定host/port/dbName, 用户名, 密码 -->
-        <property name="url" value="database.school.Write.url" />
-        <property name="username" value="${database.school.Write.username}" />
-        <property name="password" value="${database.school.Write.password}" />
+        <property name="url" value="${database.school.write.url}" />
+        <property name="username" value="${database.school.write.username}" />
+        <property name="password" value="${database.school.write.password}" />
 
         <!--
             maxActive：最大连接数据库连接数，设置为0时，表示没有限制；
             maxIdle：最大等待连接中的数量，设置为0时，表示没有限制；
             maxWait：最大等待秒数，单位为毫秒， 超过时间会报出错误信息；
         -->
-        <property name="maxActive" value="${database.school.Write.max.active}" />
-        <property name="maxIdle" value="${database.school.Write.max.idle}" />
-        <property name="maxWait" value="${database.school.Write.maxWaitMillis}" />
+        <property name="maxActive" value="${database.school.write.max.active}" />
+        <property name="maxIdle" value="${database.school.write.max.idle}" />
+        <property name="maxWait" value="${database.school.write.maxWaitMillis}" />
 
         <!--
             defaultAutoCommit：设置从数据源中返回的连接是否采用自动提交机制，默认值为 true；
@@ -95,8 +95,8 @@
     <bean id="persistenceUnitManager" class="org.springframework.orm.jpa.persistenceunit.DefaultPersistenceUnitManager">
         <property name="persistenceXmlLocations">
             <list>
-                <value>classpath*:META-INF/persistence.xml</value>
-                <value>classpath*:META-INF/persistenceRead.xml</value>
+                <value>classpath*:META-INF/config/persistence/persistence.xml</value>
+                <value>classpath*:META-INF/config/persistence/persistenceRead.xml</value>
             </list>
         </property>
         <property name="dataSources">
@@ -109,26 +109,21 @@
         <!--<property name="defaultPersistenceUnitRootLocation" value="META-INF/persistenceRead.xml"/>-->
     </bean>
 
-    <bean id="persistenceProvider" class="org.hibernate.ejb.HibernatePersistence"/>
     <!-- 指定适配器 -->
     <bean id="jpaVendorAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
         <property name="database" value="MYSQL"/>
     </bean>
     <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
         <!-- 指定持久化单元的名称, 只能指定一个, 如果不指定, 则默认去找default的. -->
-        <!--<property name="persistenceUnitName" value="persistenceUnitWrite"/>-->
+        <property name="persistenceUnitName" value="persistenceUnitWrite"/>
         <!--
-            有了持久化单元管理器, 不需要指定persistenceUnitName, 不需要指定dataSource
             只有一个持久化单元可以直接
-            <property name="persistenceXmlLocation" value="classpath*:META-INF/persistence.xml"/>
+            <property name="persistenceXmlLocation" value="classpath*:META-INF/config/persistence/persistence.xml"/>
             不用配置persistenceUnitManager.
         -->
         <property name="persistenceUnitManager" ref="persistenceUnitManager"/>
         <property name="dataSource" ref="schoolDataSourceWrite" />
         <property name="jpaVendorAdapter" ref="jpaVendorAdapter"/>
-        <property name="persistenceProvider">
-            <bean class="org.hibernate.ejb.HibernatePersistence"/>
-        </property>
         <property name="jpaDialect">
             <bean class="org.springframework.orm.jpa.vendor.HibernateJpaDialect"/>
         </property>
@@ -147,28 +142,28 @@
             <!--</list>-->
         <!--</property>-->
     </bean>
-    <bean id="entityManagerFactoryRead" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-        <property name="dataSource" ref="schoolDataSourceRead"/>
-        <property name="jpaVendorAdapter" ref="jpaVendorAdapter"/>
-        <!--待扫描的实体类包，不再需要persistence.xml了-->
-        <!--<property name="packagesToScan" value="cn.ibeans"/>-->
-        <property name="jpaProperties">
-            <props>
-                <prop key="hibernate.ejb.naming_strategy">org.hibernate.cfg.ImprovedNamingStrategy</prop>
-                <prop key="hibernate.show_sql">false</prop>
-                <prop key="hibernate.hbm2ddl.auto">update</prop>
-                <prop key="hibernate.format_sql">true</prop>
-            </props>
-        </property>
-    </bean>
+    <!--<bean id="entityManagerFactoryRead" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">-->
+        <!--<property name="dataSource" ref="schoolDataSourceRead"/>-->
+        <!--<property name="jpaVendorAdapter" ref="jpaVendorAdapter"/>-->
+        <!--&lt;!&ndash;待扫描的实体类包，不再需要persistence.xml了&ndash;&gt;-->
+        <!--&lt;!&ndash;<property name="packagesToScan" value="cn.ibeans"/>&ndash;&gt;-->
+        <!--<property name="jpaProperties">-->
+            <!--<props>-->
+                <!--<prop key="hibernate.ejb.naming_strategy">org.hibernate.cfg.ImprovedNamingStrategy</prop>-->
+                <!--<prop key="hibernate.show_sql">false</prop>-->
+                <!--<prop key="hibernate.hbm2ddl.auto">update</prop>-->
+                <!--<prop key="hibernate.format_sql">true</prop>-->
+            <!--</props>-->
+        <!--</property>-->
+    <!--</bean>-->
 
     <!-- 事务管理 -->
     <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
         <property name="entityManagerFactory" ref="entityManagerFactory"/>
     </bean>
-    <bean id="transactionManagerRead"  class="org.springframework.orm.jpa.JpaTransactionManager">
-        <property name="entityManagerFactory" ref="entityManagerFactoryRead"/>
-    </bean>
+    <!--<bean id="transactionManagerRead"  class="org.springframework.orm.jpa.JpaTransactionManager">-->
+        <!--<property name="entityManagerFactory" ref="entityManagerFactoryRead"/>-->
+    <!--</bean>-->
 
     <!-- 使用注解方式来使用声明事物   -->
     <!-- 代理目标对象必须设置为 true 要不然sprig 注入的业务代理bean  就没有办法进行对象上转-->
