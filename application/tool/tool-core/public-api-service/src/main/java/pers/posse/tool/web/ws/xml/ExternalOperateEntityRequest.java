@@ -9,9 +9,9 @@ import javax.xml.bind.annotation.XmlRootElement;
  * Created by posse on 17-7-19.
  */
 // @XmlRootElement 告诉JAXB如何编组给定的类型 或者 直接从/给定方法返回/接受JAXBElement.
-@XmlRootElement(name = "externalInsertEntityRequest")
+@XmlRootElement(name = "externalOperateEntityRequest")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class ExternalInsertEntityRequest {
+public class ExternalOperateEntityRequest {
 
     @XmlAttribute(name = "userName", required = true)
     private String userName;
@@ -19,6 +19,10 @@ public class ExternalInsertEntityRequest {
     private String password;
     @XmlAttribute(name = "version", required = true)
     private String version;
+
+    private Operation operation;
+
+    private DomainAttribute domainAttribute;
 
     public String getUserName() {
         return userName;
@@ -43,10 +47,6 @@ public class ExternalInsertEntityRequest {
     public void setVersion(String version) {
         this.version = version;
     }
-
-    private Operation operation;
-
-    private DomainAttribute domainAttribute;
 
     public Operation getOperation() {
         return operation;

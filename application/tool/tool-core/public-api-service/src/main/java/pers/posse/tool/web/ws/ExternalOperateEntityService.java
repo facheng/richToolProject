@@ -3,8 +3,8 @@ package pers.posse.tool.web.ws;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import pers.posse.tool.web.ws.xml.ExternalInsertEntityRequest;
-import pers.posse.tool.web.ws.xml.ExternalInsertEntityResponse;
+import pers.posse.tool.web.ws.xml.ExternalOperateEntityRequest;
+import pers.posse.tool.web.ws.xml.ExternalOperateEntityResponse;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.PUT;
@@ -15,7 +15,7 @@ import javax.ws.rs.core.MediaType;
 /**
  * Created by posse on 17-7-19.
  */
-// @ApiOperation(value = "Import external billing", response = ExternalInsertEntityResponse.class, httpMethod = "PUT", notes = "接口发布说明")
+// @ApiOperation(value = "Import external billing", response = ExternalOperateEntityResponse.class, httpMethod = "PUT", notes = "接口发布说明")
 // @ApiParam(required = "是否必须参数", name = "参数名称", value = "参数具体描述")
 // swagger http://blog.csdn.net/fansunion/article/details/51923720
 // http://blog.csdn.net/gebitan505/article/details/51658643
@@ -30,7 +30,7 @@ import javax.ws.rs.core.MediaType;
 public interface ExternalOperateEntityService {
     @PUT
     @Path("/entity")
-    @ApiOperation(value = "external insert entity", response = ExternalInsertEntityResponse.class, httpMethod = "PUT", notes = "接口发布说明") ExternalInsertEntityResponse service(
-            @ApiParam(required = true, name = "externalInsertEntityRequest", value = "参数具体描述") ExternalInsertEntityRequest externalInsertEntityRequest);
+    @ApiOperation(value = "external insert entity", response = ExternalOperateEntityResponse.class, httpMethod = "PUT", notes = "接口发布说明") ExternalOperateEntityResponse service(
+            @ApiParam(required = true, name = "externalOperateEntityRequest", value = "参数具体描述") ExternalOperateEntityRequest externalInsertEntityRequest);
 
 }
