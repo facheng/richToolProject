@@ -1,7 +1,7 @@
-package pers.posse.tool.service.impl.infrastructure.persistence;
+package pers.posse.tool.service.impl.persistence;
 
 import org.springframework.stereotype.Repository;
-import pers.posse.tool.service.infrastructure.persistence.ICourseRepository;
+import pers.posse.tool.service.persistence.ICourseRepository;
 
 import javax.persistence.EntityManager;
 

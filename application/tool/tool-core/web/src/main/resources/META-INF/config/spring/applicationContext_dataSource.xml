@@ -105,9 +105,6 @@
         <property name="persistenceUnitManager" ref="persistenceUnitManager"/>
         <property name="dataSource" ref="schoolDataSourceWrite" />
         <property name="jpaVendorAdapter" ref="jpaVendorAdapter"/>
-        <property name="persistenceProvider">
-            <bean class="org.hibernate.ejb.HibernatePersistence"/>
-        </property>
         <property name="jpaDialect">
             <bean class="org.springframework.orm.jpa.vendor.HibernateJpaDialect"/>
         </property>
@@ -127,7 +124,6 @@
         <!--</property>-->
     </bean>
     <!--<bean id="entityManagerFactoryRead" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">-->
-        <!--<property name="persistenceUnitName" value="persistenceUnitRead"/>-->
         <!--<property name="dataSource" ref="schoolDataSourceRead"/>-->
         <!--<property name="jpaVendorAdapter" ref="jpaVendorAdapter"/>-->
         <!--&lt;!&ndash;待扫描的实体类包，不再需要persistence.xml了&ndash;&gt;-->

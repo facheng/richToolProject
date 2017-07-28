@@ -1,7 +1,7 @@
-package pers.posse.tool.service.impl.infrastructure.persistence.finder;
+package pers.posse.tool.service.impl.persistence.finder;
 
 import org.springframework.stereotype.Repository;
-import pers.posse.tool.service.infrastructure.persistence.finder.ITeacherFinder;
+import pers.posse.tool.service.persistence.finder.ITeacherFinder;
 
 import javax.persistence.EntityManager;
 
