@@ -10,7 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>core-public-api-service-impl</artifactId>
-    <name>public-api-service-impl</name>
+    <name>tool-core public-api-service-impl</name>
 
     <dependencies>
         <dependency>
@@ -21,11 +21,6 @@
         <dependency>
             <groupId>com.posse.tool.core</groupId>
             <artifactId>core-service</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.posse.tool.core</groupId>
-            <artifactId>core-service-impl</artifactId>
             <version>${project.version}</version>
         </dependency>
     </dependencies>

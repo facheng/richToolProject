@@ -3,7 +3,6 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
     <parent>
         <artifactId>core-parent</artifactId>
         <groupId>com.posse.tool.core</groupId>
@@ -11,7 +10,7 @@
     </parent>
 
     <artifactId>core-public-api-service</artifactId>
-    <name>public-api-service</name>
+    <name>tool-core  public-api-service</name>
 
     <dependencies>
         <dependency>
@@ -20,4 +19,5 @@
             <version>${project.version}</version>
         </dependency>
     </dependencies>
+
 </project>

@@ -7,9 +7,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 /**
  * Created by posse on 17-7-19.
  */
-@XmlRootElement(name = "externalInsertEntityResponse")
+@XmlRootElement(name = "externalOperateEntityResponse")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class ExternalInsertEntityResponse {
+public class ExternalOperateEntityResponse {
     private String response = "Insert Success.";
 
     public String getResponse() {
