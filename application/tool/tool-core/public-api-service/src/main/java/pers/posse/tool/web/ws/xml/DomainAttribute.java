@@ -11,7 +11,7 @@ import java.math.BigDecimal;
 /**
  * Created by posse on 17-7-25.
  */
-@XmlRootElement(name = "externalInsertEntityRequest")
+@XmlRootElement(name = "attribute")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class DomainAttribute {
 

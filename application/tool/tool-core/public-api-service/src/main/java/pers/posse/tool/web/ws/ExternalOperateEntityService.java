@@ -25,11 +25,11 @@ import javax.ws.rs.core.MediaType;
  */
 @Produces(MediaType.APPLICATION_XML)
 @Consumes(MediaType.APPLICATION_XML)
-@Path("/insert")
+@Path("/operate")
 @Api(value = "External insert entity service")
 public interface ExternalOperateEntityService {
     @PUT
-    @Path("/student")
+    @Path("/entity")
     @ApiOperation(value = "external insert entity", response = ExternalInsertEntityResponse.class, httpMethod = "PUT", notes = "接口发布说明") ExternalInsertEntityResponse service(
             @ApiParam(required = true, name = "externalInsertEntityRequest", value = "参数具体描述") ExternalInsertEntityRequest externalInsertEntityRequest);
 
