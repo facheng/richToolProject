@@ -5,7 +5,6 @@ import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
-import pers.posse.tool.service.impl.domain.Student;
 
 /**
  * Created by posse on 17-7-20.
@@ -83,7 +82,7 @@ public class InitHibernate {
          * Hibernate ORM 4 里面推荐的方式是 org.hibernate.cfg.Configuration#buildSessionFactory(ServiceRegistry serviceRegistry),
          * 需要先构造一个 ServiceRegistry 对象
          */
-        Configuration configuration = new Configuration().configure("hibernate.cfg.xml").addAnnotatedClass(Student.class);
+        Configuration configuration = new Configuration().configure("hibernate.cfg.xml");
         ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
                 .applySettings(configuration.getProperties()).build();
         SessionFactory sessionFactory = configuration.buildSessionFactory(serviceRegistry);
@@ -94,11 +93,11 @@ public class InitHibernate {
         //  如果使用openSession而没有手动关闭,多次之后会导致连接池溢出.
         //2.openSession每次都创建新的session对象, getCurrentSession使用现有的session对象.
         Session session = sessionFactory.openSession();
-
-        Student student = new Student();
-        session.beginTransaction();
-        session.save(student);
-        session.getTransaction().commit();
-        session.close();
+//
+//        Student student = new Student();
+//        session.beginTransaction();
+//        session.save(student);
+//        session.getTransaction().commit();
+//        session.close();
     }
 }

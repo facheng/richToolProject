@@ -7,7 +7,7 @@ import pers.posse.tool.web.ws.xml.ExternalOperateEntityRequest;
 import pers.posse.tool.web.ws.xml.ExternalOperateEntityResponse;
 
 import javax.ws.rs.Consumes;
-import javax.ws.rs.PUT;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
@@ -28,7 +28,7 @@ import javax.ws.rs.core.MediaType;
 @Path("/operate")
 @Api(value = "External insert entity service")
 public interface ExternalOperateEntityService {
-    @PUT
+    @POST
     @Path("/entity")
     @ApiOperation(value = "external insert entity", response = ExternalOperateEntityResponse.class, httpMethod = "PUT", notes = "接口发布说明") ExternalOperateEntityResponse service(
             @ApiParam(required = true, name = "externalOperateEntityRequest", value = "参数具体描述") ExternalOperateEntityRequest externalInsertEntityRequest);

@@ -1,12 +1,10 @@
 package pers.posse.tool.web.ws.xml;
 
-import domain.enums.Duty;
 import domain.enums.Gender;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
-import java.math.BigDecimal;
 
 /**
  * Created by posse on 17-7-25.
@@ -28,12 +26,6 @@ public class DomainAttribute {
     private String address;
 
     private String mobile;
-
-    private Duty duty;
-
-    private BigDecimal credit;
-
-    private BigDecimal score;
 
     private String apiName;
 
@@ -93,30 +85,6 @@ public class DomainAttribute {
 
     public void setMobile(String mobile) {
         this.mobile = mobile;
-    }
-
-    public Duty getDuty() {
-        return duty;
-    }
-
-    public void setDuty(Duty duty) {
-        this.duty = duty;
-    }
-
-    public BigDecimal getCredit() {
-        return credit;
-    }
-
-    public void setCredit(BigDecimal credit) {
-        this.credit = credit;
-    }
-
-    public BigDecimal getScore() {
-        return score;
-    }
-
-    public void setScore(BigDecimal score) {
-        this.score = score;
     }
 
     public String getApiName() {
