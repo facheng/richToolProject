@@ -13,5 +13,6 @@
     <modules>
         <module>base-utils</module>
         <module>business</module>
+        <module>base-exception</module>
     </modules>
 </project>

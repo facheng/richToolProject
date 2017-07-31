@@ -13,31 +13,31 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class ExternalOperateEntityRequest {
 
-    @XmlAttribute(name = "userName", required = true)
-    private String userName;
-    @XmlAttribute(name = "password", required = true)
-    private String password;
+    @XmlAttribute(name = "apiName", required = true)
+    private String apiName;
+    @XmlAttribute(name = "apiPassword", required = true)
+    private String apiPassword;
     @XmlAttribute(name = "version", required = true)
     private String version;
 
     private Operation operation;
 
-    private DomainAttribute domainAttribute;
+    private DomainAttribute attribute;
 
-    public String getUserName() {
-        return userName;
+    public String getApiName() {
+        return apiName;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setApiName(String apiName) {
+        this.apiName = apiName;
     }
 
-    public String getPassword() {
-        return password;
+    public String getApiPassword() {
+        return apiPassword;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setApiPassword(String apiPassword) {
+        this.apiPassword = apiPassword;
     }
 
     public String getVersion() {
@@ -56,11 +56,11 @@ public class ExternalOperateEntityRequest {
         this.operation = operation;
     }
 
-    public DomainAttribute getDomainAttribute() {
-        return domainAttribute;
+    public DomainAttribute getAttribute() {
+        return attribute;
     }
 
-    public void setDomainAttribute(DomainAttribute domainAttribute) {
-        this.domainAttribute = domainAttribute;
+    public void setAttribute(DomainAttribute attribute) {
+        this.attribute = attribute;
     }
 }

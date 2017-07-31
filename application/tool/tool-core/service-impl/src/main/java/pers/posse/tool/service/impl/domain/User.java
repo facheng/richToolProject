@@ -7,7 +7,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 /**
@@ -15,13 +14,11 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "user")
-// 自动建表时,创建索引
-@SequenceGenerator(name = "seq_user", sequenceName = "seq_user")
 public class User {
 
     @Id
     @Column(name = "id")
-    @GeneratedValue(generator = "seq_user", strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
 
     @Column(name = "name")
@@ -49,6 +46,19 @@ public class User {
     private String apiPassword;
 
     public User() {
+    }
+
+    public User(Long id, String name, Integer age, Gender gender, String idNum, String address, String mobile,
+            String apiName, String apiPassword) {
+        this.id = id;
+        this.name = name;
+        this.age = age;
+        this.gender = gender;
+        this.idNum = idNum;
+        this.address = address;
+        this.mobile = mobile;
+        this.apiName = apiName;
+        this.apiPassword = apiPassword;
     }
 
     public Long getId() {

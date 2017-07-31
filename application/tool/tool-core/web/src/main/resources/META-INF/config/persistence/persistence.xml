@@ -2,7 +2,7 @@
 <persistence xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.0" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
 <persistence-unit name="persistenceUnitWrite" transaction-type="RESOURCE_LOCAL">
         <provider>org.hibernate.ejb.HibernatePersistence</provider>
-        <non-jta-data-source>dataSource</non-jta-data-source>
+        <!--<non-jta-data-source>schoolDataSourceRead</non-jta-data-source>-->
         <properties>
             <!--<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>-->
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL55Dialect"/>
@@ -31,5 +31,9 @@
             <!-- property name="hibernate.validator.apply_to_ddl" value="false" /-->
             <!-- property name="hibernate.validator.autoregister_listeners" value="false" /-->
         </properties>
+        <class>pers.posse.tool.service.impl.domain.User</class>
+        <class>pers.posse.tool.service.impl.domain.Student</class>
+        <class>pers.posse.tool.service.impl.domain.Teacher</class>
+        <class>pers.posse.tool.service.impl.domain.Course</class>
     </persistence-unit>
 </persistence>

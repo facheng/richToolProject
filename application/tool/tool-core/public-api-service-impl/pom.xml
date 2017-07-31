@@ -23,6 +23,11 @@
             <artifactId>core-service</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.posse.tool.base</groupId>
+            <artifactId>base-exception</artifactId>
+            <version>${project.version}</version>
+        </dependency>
     </dependencies>
 
 </project>
