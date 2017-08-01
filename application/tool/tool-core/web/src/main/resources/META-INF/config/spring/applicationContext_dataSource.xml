@@ -13,35 +13,29 @@
 	         http://www.springframework.org/schema/context/spring-context-4.0.xsd
 	         ">
 
-    <context:component-scan base-package="pers.posse.tool">
-    </context:component-scan>
+    <context:property-placeholder location="classpath*:META-INF/*.properties"/>
+    <context:component-scan base-package="pers.posse.tool.service.impl" />
 
     <bean id="schoolDataSourceWrite" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
-        <!-- 指定哪种数据库连接Driver -->
+        <!-- 指定哪种数据库连接Driver, 指定host/port/dbName, 用户名, 密码 -->
         <property name="driverClassName"  value="${database.driver.className}" />
-
-        <!-- 指定host/port/dbName, 用户名, 密码 -->
         <property name="url" value="${database.school.read.url}" />
         <property name="username" value="${database.school.write.username}" />
         <property name="password" value="${database.school.write.password}" />
 
-        <!--
-            maxActive：最大连接数据库连接数，设置为0时，表示没有限制；
+        <!-- maxActive：最大连接数据库连接数，设置为0时，表示没有限制；
             maxIdle：最大等待连接中的数量，设置为0时，表示没有限制；
-            maxWait：最大等待秒数，单位为毫秒， 超过时间会报出错误信息；
-        -->
+            maxWait：最大等待秒数，单位为毫秒， 超过时间会报出错误信息； -->
         <property name="maxActive" value="${database.school.write.max.active}" />
         <property name="maxIdle" value="${database.school.write.max.idle}" />
         <property name="maxWait" value="${database.school.write.maxWaitMillis}" />
 
-        <!--
-            defaultAutoCommit：设置从数据源中返回的连接是否采用自动提交机制，默认值为 true；
+        <!--  defaultAutoCommit：设置从数据源中返回的连接是否采用自动提交机制，默认值为 true；
             defaultReadOnly：设置数据源是否仅能执行只读操作， 默认值为 false；
             validationQuery：用于验证连接是否成功的查询SQL语句，SQL语句必须至少要返回一行数据.
             removeAbandoned：是否自我中断，默认是 false ；
             removeAbandonedTimeout：几秒后数据连接会自动断开，在removeAbandoned为true，提供该值；
-            logAbandoned：是否记录中断事件， 默认为 false；
-        -->
+            logAbandoned：是否记录中断事件， 默认为 false； -->
         <property name="validationQuery" value="SELECT version();"/>
         <property name="removeAbandoned" value="${database.dbcp.removeAbandoned}" />
         <property name="removeAbandonedTimeout" value="${database.dbcp.removeAbandonedTimeout}" />
@@ -63,12 +57,7 @@
         <property name="logAbandoned" value="${database.dbcp.logAbandoned}" />
     </bean>
 
-    <!-- 持久化bean -->
-    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
-        <constructor-arg ref="schoolDataSourceWrite"/>
-    </bean>
-
-    <!-- 持久化单元管理 -->
+    <!-- 持久化单元管理, 存储持久化单元,避免加载慢的问题 -->
     <bean id="persistenceUnitManager" class="org.springframework.orm.jpa.persistenceunit.DefaultPersistenceUnitManager">
         <property name="persistenceXmlLocations">
             <list>
@@ -83,24 +72,19 @@
             </map>
         </property>
         <property name="defaultDataSource" ref="schoolDataSourceWrite"/>
-        <!--<property name="defaultPersistenceUnitRootLocation" value="META-INF/persistenceRead.xml"/>-->
+        <property name="defaultPersistenceUnitRootLocation" value="classpath*:META-INF/config/persistence/persistence.xml"/>
     </bean>
 
-    <!-- 指定适配器 -->
-    <bean id="jpaVendorAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
-        <property name="database" value="MYSQL"/>
-    </bean>
     <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-        <!-- 指定持久化单元的名称, 只能指定一个, 如果不指定, 则默认去找default的. -->
+        <!-- 指定持久化单元的名称, 只能指定一个, 如果不指定, 则默认去找名称default -->
         <property name="persistenceUnitName" value="persistenceUnitWrite"/>
-        <!--
-            只有一个持久化单元可以直接
-            <property name="persistenceXmlLocation" value="classpath*:META-INF/config/persistence/persistence.xml"/>
-            不用配置persistenceUnitManager.
-        -->
         <property name="persistenceUnitManager" ref="persistenceUnitManager"/>
         <property name="dataSource" ref="schoolDataSourceWrite" />
-        <property name="jpaVendorAdapter" ref="jpaVendorAdapter"/>
+        <property name="jpaVendorAdapter">
+            <bean id="jpaVendorAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+                <property name="database" value="MYSQL"/>
+            </bean>
+        </property>
         <property name="jpaDialect">
             <bean class="org.springframework.orm.jpa.vendor.HibernateJpaDialect"/>
         </property>
@@ -112,12 +96,6 @@
                 </entry>
             </map>
         </property>
-        <!-- http://blog.csdn.net/lzc3144/article/details/7934666 -->
-        <!--<property name="persistenceUnitPostProcessors">-->
-            <!--<list>-->
-                <!--<ref bean="additionalEntities"/>-->
-            <!--</list>-->
-        <!--</property>-->
     </bean>
 
     <bean id="entityManagerFactoryRead" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
@@ -125,6 +103,7 @@
         <property name="dataSource" ref="schoolDataSourceRead"/>
         <property name="jpaVendorAdapter" ref="jpaVendorAdapter"/>
         <property name="persistenceUnitManager" ref="persistenceUnitManager"/>
+        <!--<property name="persistenceXmlLocation" value="classpath*:META-INF/config/persistence/persistence.xml"/>-->
     </bean>
 
     <!-- 事务管理 -->
@@ -136,16 +115,12 @@
     </bean>
 
     <!-- 使用注解方式来使用声明事物
-        mode：指定Spring事务管理框架创建通知bean的方式。可用的值有proxy和aspectj。前者是默认值，表示通知对象是个JDK代理；
-            后者表示Spring AOP会使用AspectJ创建代理
+        mode：指定Spring事务管理框架创建通知bean的方式。可用的值有proxy和aspectj。前者是默认值,
+            表示通知对象是个JDK代理, 后者表示Spring AOP会使用AspectJ创建代理
         proxy-target-class：如果为true，Spring将创建子类来代理业务类；如果为false，则使用基于接口的代理。
             （如果使用子类代理，需要在类路径中添加CGLib.jar类库）
         order：如果业务类除事务切面外，还需要织入其他的切面，通过该属性可以控制事务切面在目标连接点的织入顺序。
         transaction-manager：指定到现有的PlatformTransaction Manager bean的引用，通知会使用该引用
     -->
-
-    <context:property-placeholder location="classpath*:META-INF/*.properties"/>
-    <context:component-scan base-package="pers.posse.tool" />
-
-    <tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true" />
+    <tx:annotation-driven transaction-manager="transactionManager" mode="aspectj" />
 </beans>

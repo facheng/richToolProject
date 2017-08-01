@@ -12,8 +12,6 @@
              http://www.springframework.org/schema/tx
 	         http://www.springframework.org/schema/tx/spring-tx-4.0.xsd ">
 
-    
-
     <import resource="classpath*:META-INF/config/cxf/webServices.xml" />
     <import resource="classpath*:META-INF/config/spring/applicationContext_dataSource.xml" />
 </beans>

@@ -26,18 +26,4 @@ public final class UserDtoParser {
         userDto.setApiPassword(user.getApiPassword());
         return userDto;
     }
-
-    public static void fromDto(User user, UserDto userDto) {
-        if (userDto == null) {
-            return;
-        }
-        user.setName(userDto.getName() == null ? null : user.getName());
-        user.setAge(userDto.getAge() == null ? null : user.getAge());
-        user.setGender(userDto.getGender() == null ? null : user.getGender());
-        user.setMobile(userDto.getMobile() == null ? null : user.getMobile());
-        user.setAddress(userDto.getAddress() == null ? null : user.getAddress());
-        user.setIdNum(userDto.getIdNum() == null ? null : user.getIdNum());
-        user.setApiName(userDto.getApiName() == null ? null : user.getApiName());
-        user.setApiPassword(userDto.getApiPassword() == null ? null : user.getApiPassword());
-    }
 }

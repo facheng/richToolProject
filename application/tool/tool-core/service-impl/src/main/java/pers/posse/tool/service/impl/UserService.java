@@ -55,6 +55,7 @@ public class UserService implements IUserService {
     }
 
     @Override
+    @Transactional
     public void updateUser(DomainAttribute attribute) throws ExternalException {
 
         if (retrieve(attribute.getId()) == null) {
