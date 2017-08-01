@@ -101,7 +101,6 @@
     <bean id="entityManagerFactoryRead" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
         <property name="persistenceUnitName" value="persistenceUnitRead"/>
         <property name="dataSource" ref="schoolDataSourceRead"/>
-        <property name="jpaVendorAdapter" ref="jpaVendorAdapter"/>
         <property name="persistenceUnitManager" ref="persistenceUnitManager"/>
         <!--<property name="persistenceXmlLocation" value="classpath*:META-INF/config/persistence/persistence.xml"/>-->
     </bean>
